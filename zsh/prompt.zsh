@@ -69,10 +69,17 @@ todo(){
 }
 
 directory_name(){
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  #echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  #echo "%{$fg_bold[cyan]%}%0/%\/%{$reset_color%}"
+  echo "%{$(pwd|grep --color=always /)%${#PWD}G%}"
 }
 
-export PROMPT=$'\n$(rb_prompt) in $(directory_name) $(git_dirty)$(need_push)\n› '
+user_name(){
+  echo "%(!.%F{red}.%F{cyan})%n%f@%F{yellow}%m%f%(!.%F{red}.)%#%f"
+}
+
+#export PROMPT=$'\n$(rb_prompt) in $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(user_name) $(directory_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}$(todo)%{$reset_color%}"
 }
